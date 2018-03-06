@@ -8,28 +8,21 @@ cat > $chroot/var/vcap/bosh/agent.json <<JSON
 {
   "Platform": {
     "Linux": {
-      "CreatePartitionIfNoEphemeralDisk": true,
-      $(get_partitioner_type_mapping)
-      "DevicePathResolutionType": "virtio",
-      "VirtioDevicePrefix": "google"
+      "UseDefaultTmpDir": true,
+
+      "SkipDiskSetup": true
     }
   },
-  "Infrastructure": {
-    "Settings": {
-      "Sources": [
-        {
-          "Type": "InstanceMetadata",
-          "URI": "http://169.254.169.254",
-          "SettingsPath": "/computeMetadata/v1/instance/attributes/bosh_settings",
-          "Headers": {
-            "Metadata-Flavor": "Google"
-          }
-        }
-      ],
-
-      "UseServerName": true,
-      "UseRegistry": false
-    }
-  }
-}
+   "Infrastructure": {
+     "Settings": {
+       "Sources": [
+         {
+           "Type": "File",
+           "SettingsPath": "/var/vcap/bosh/user_data.json"
+         }
+       ],
+       "UseRegistry": true
+     }
+   }
+ }
 JSON

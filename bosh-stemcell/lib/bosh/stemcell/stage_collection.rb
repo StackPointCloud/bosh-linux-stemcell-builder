@@ -61,6 +61,8 @@ module Bosh::Stemcell
         azure_stages
       when Infrastructure::Softlayer then
         softlayer_stages
+      when Infrastructure::Oneandone then
+        oneandone_stages
       end
 
       stages.concat(finish_stemcell_stages)
@@ -197,6 +199,22 @@ module Bosh::Stemcell
           :bosh_clean_ssh,
           :image_create,
           :image_install_grub,
+      ]
+    end
+
+    def oneandone_stages
+      [
+          :system_oneandone_network,
+          :system_open_vm_tools,
+          :system_oneandone_packages,
+          :system_parameters,
+          :bosh_clean,
+          :bosh_harden,
+          :bosh_oneandone_agent_settings,
+          :bosh_clean_ssh,
+          :image_create,
+          :image_install_grub,
+          :bosh_package_list
       ]
     end
 

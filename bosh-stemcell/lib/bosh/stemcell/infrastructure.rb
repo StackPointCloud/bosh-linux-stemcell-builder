@@ -18,6 +18,8 @@ module Bosh::Stemcell
           Azure.new
         when 'softlayer'
           Softlayer.new
+        when 'oneandone'
+          Oneandone.new
         when 'null'
           NullInfrastructure.new
         else
@@ -170,6 +172,22 @@ module Bosh::Stemcell
           default_disk_size: 3072,
           disk_formats: ['ovf'],
           stemcell_formats: ['softlayer-ovf']
+        )
+      end
+
+      def additional_cloud_properties
+        {'root_device_name' => '/dev/sda1'}
+      end
+    end
+
+    class Oneandone < Base
+      def initialize
+        super(
+            name: 'oneandone',
+            hypervisor: 'kvm',
+            default_disk_size: 3072,
+            disk_formats: ['qcow2', 'raw'],
+            stemcell_formats: ['oneandone-qcow2', 'oneandone-raw']
         )
       end
 

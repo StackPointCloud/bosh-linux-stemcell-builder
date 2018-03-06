@@ -510,6 +510,42 @@ module Bosh::Stemcell
           end
         end
       end
+
+      context 'when using Oneandone' do
+        let(:infrastructure) { Infrastructure.for('oneandone') }
+
+        let(:oneandone_build_stemcell_image_stages) {
+          [
+              :system_oneandone_network,
+              :system_open_vm_tools,
+              :system_oneandone_packages,
+              :system_parameters,
+              :bosh_clean,
+              :bosh_harden,
+              :bosh_oneandone_agent_settings,
+              :bosh_clean_ssh,
+              :image_create,
+              :image_install_grub,
+              :bosh_package_list
+          ]
+        }
+
+        let(:oneandone_package_stemcell_stages) {
+          [
+              :prepare_qcow2_image_stemcell,
+          ]
+        }
+
+        context 'when the operating system is Ubuntu' do
+          let(:operating_system) { OperatingSystem.for('ubuntu') }
+
+          it 'returns the correct stages' do
+            expect(stage_collection.build_stemcell_image_stages).to eq(oneandone_build_stemcell_image_stages)
+            expect(stage_collection.package_stemcell_stages('qcow2')).to eq(oneandone_package_stemcell_stages)
+          end
+
+        end
+      end
     end
   end
 end
