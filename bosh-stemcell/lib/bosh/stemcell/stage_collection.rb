@@ -211,6 +211,7 @@ module Bosh::Stemcell
           :bosh_clean,
           :bosh_harden,
           :bosh_oneandone_agent_settings,
+          :oneandone_ssh_enable_root_authentication,
           :bosh_clean_ssh,
           :image_create,
           :image_install_grub,
