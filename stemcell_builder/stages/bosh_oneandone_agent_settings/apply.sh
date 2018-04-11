@@ -8,8 +8,7 @@ cat > $chroot/var/vcap/bosh/agent.json <<JSON
 {
   "Platform": {
     "Linux": {
-      "UseDefaultTmpDir": true,
-      "SkipDiskSetup": true
+      "UseDefaultTmpDir": true
     }
   },
    "Infrastructure": {
