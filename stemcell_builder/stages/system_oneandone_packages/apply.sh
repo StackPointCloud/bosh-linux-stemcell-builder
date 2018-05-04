@@ -8,7 +8,7 @@ source $base_dir/lib/prelude_apply.bash
 
 run_in_chroot $chroot "apt-get update"
 run_in_chroot $chroot "apt-get -y install cloud-init --no-install-recommends"
-run_in_chroot $chroot "apt-get install linux-image-extra-4.10.0-38-generic"
+run_in_chroot $chroot "apt-get -y install linux-image-extra-4.4.0-98 --no-install-recommends "
 
 if [ -e "$chroot/usr/lib/python3/dist-packages/cloudinit" ]; then # ubuntu xenial 16.04
 cp  $assets_dir/DataSourceUI.py $chroot/usr/lib/python3/dist-packages/cloudinit/sources/

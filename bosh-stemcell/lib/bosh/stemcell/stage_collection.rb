@@ -210,7 +210,6 @@ module Bosh::Stemcell
           :system_parameters,
           :bosh_clean,
           :bosh_harden,
-          :bosh_enable_password_authentication,
           :bosh_oneandone_agent_settings,
           :oneandone_ssh_enable_root_authentication,
           :bosh_clean_ssh,
