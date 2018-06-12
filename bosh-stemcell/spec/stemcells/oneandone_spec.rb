@@ -3,26 +3,19 @@ require 'spec_helper'
 describe 'Oneandone Stemcell', stemcell_image: true do
   it_behaves_like 'udf module is disabled'
 
-  context 'installed by system_parameters' do
-    describe file('/var/vcap/bosh/etc/infrastructure') do
-      its(:content) { should include('oneandone') }
+  context 'rsyslog conf directory only contains files installed by rsyslog_config stage and cloud-init package' do
+    describe command('ls -A /etc/rsyslog.d') do
+      its (:stdout) { should eq(%q(21-cloudinit.conf
+50-default.conf
+avoid-startup-deadlock.conf
+enable-kernel-logging.conf
+))}
     end
   end
 
-  context 'installed by package_qcow2_image stage' do
-    describe 'converts to qcow2 0.10(x86) or 1.1(ppc64le) compat' do
-      # environment is cleaned up inside rspec context
-      stemcell_image = ENV['STEMCELL_IMAGE']
-
-      subject do
-        cmd = "qemu-img info #{File.join(File.dirname(stemcell_image), 'root.qcow2')}"
-        `#{cmd}`
-      end
-
-      it {
-        compat = Bosh::Stemcell::Arch.ppc64le? ? '1.1' : '0.10'
-        should include("compat: #{compat}")
-      }
+  context 'installed by system_parameters' do
+    describe file('/var/vcap/bosh/etc/infrastructure') do
+      its(:content) { should include('oneandone') }
     end
   end
 

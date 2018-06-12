@@ -432,25 +432,44 @@ shared_examples_for 'every OS image' do
   # images to perform theses stages. For the Stemcell suites the exlude flags
   # here apply.
   describe 'exceptions' do
-    context 'unless: vcloud / vsphere / warden / softlayer / oneandone', {
+    context 'unless: vcloud / vsphere / warden / softlayer', {
       exclude_on_vsphere: true,
       exclude_on_vcloud: true,
       exclude_on_warden: true,
       exclude_on_softlayer: true,
-      exclude_on_oneandone:true,
     } do
       it 'disallows password authentication' do
         expect(sshd_config.content).to match(/^PasswordAuthentication no$/)
       end
     end
 
-    context 'unless: softlayer', {
+    context 'unless: softlayer / oneandone', {
         exclude_on_softlayer: true,
+        exclude_on_oneandone:true,
     } do
       it 'disallows root login (stig: V-38613)' do
         expect(sshd_config.content).to match(/^PermitRootLogin no$/)
       end
     end
+
+    context 'unless: oneandone', {
+        exclude_on_oneandone:true,
+    } do
+      it 'sets AllowGroups to bosh_sshers (CIS 9.3.13)' do
+        expect(sshd_config.content).to match(/^AllowGroups bosh_sshers$/)
+      end
+    end
+
+    context 'unless: oneandone', {
+        exclude_on_oneandone:true,
+    } do
+      it 'sets DenyUsers to root' do
+        expect(sshd_config.content).to match(/^DenyUsers root$/)
+      end
+    end
+
+
+
   end
 
   describe package('xinetd') do

@@ -28,6 +28,7 @@ describe 'Azure Stemcell', stemcell_image: true do
     exclude_on_warden: true,
     exclude_on_openstack: true,
     exclude_on_softlayer: true,
+    exclude_on_oneandone: true,
   } do
     describe file('/var/vcap/bosh/agent.json') do
       it { should be_valid_json_file }

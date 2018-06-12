@@ -282,6 +282,7 @@ HERE
       exclude_on_warden: true,
       exclude_on_azure: true,
       exclude_on_openstack: true,
+      exclude_on_oneandone: true,
   } do
     describe file('/var/vcap/bosh/agent.json') do
       it { should be_valid_json_file }

@@ -531,18 +531,11 @@ module Bosh::Stemcell
           ]
         }
 
-        let(:oneandone_package_stemcell_stages) {
-          [
-              :prepare_qcow2_image_stemcell,
-          ]
-        }
-
         context 'when the operating system is Ubuntu' do
           let(:operating_system) { OperatingSystem.for('ubuntu') }
 
           it 'returns the correct stages' do
             expect(stage_collection.build_stemcell_image_stages).to eq(oneandone_build_stemcell_image_stages)
-            expect(stage_collection.package_stemcell_stages('qcow2')).to eq(oneandone_package_stemcell_stages)
           end
 
         end

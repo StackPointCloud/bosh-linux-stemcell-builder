@@ -283,12 +283,31 @@ HERE
       exclude_on_warden: true,
       exclude_on_azure: true,
       exclude_on_openstack: true,
+      exclude_on_oneandone: true,
   } do
     describe file('/var/vcap/bosh/agent.json') do
       it { should be_valid_json_file }
       its(:content) { should match('"Type": "File"') }
       its(:content) { should match('"SettingsPath": "/var/vcap/bosh/user_data.json"') }
       its(:content) { should match('"UseRegistry": true') }
+    end
+  end
+
+  context 'installed by bosh_oneandone_agent_settings', {
+      exclude_on_aws: true,
+      exclude_on_google: true,
+      exclude_on_vcloud: true,
+      exclude_on_vsphere: true,
+      exclude_on_warden: true,
+      exclude_on_azure: true,
+      exclude_on_openstack: true,
+      exclude_on_softlayer: true,
+  } do
+    describe file('/var/vcap/bosh/agent.json') do
+      it { should be_valid_json_file }
+      its(:content) { should match('"Type": "File"') }
+      its(:content) { should match('"SettingsPath": "/var/vcap/bosh/user_data.json"') }
+      its(:content) { should match('"UserDataPath": "/var/vcap/bosh/user_data.json"') }
     end
   end
 

@@ -186,8 +186,8 @@ module Bosh::Stemcell
             name: 'oneandone',
             hypervisor: 'kvm',
             default_disk_size: 3072,
-            disk_formats: ['qcow2', 'raw'],
-            stemcell_formats: ['oneandone-qcow2', 'oneandone-raw']
+            disk_formats: ['raw'],
+            stemcell_formats: ['oneandone-raw']
         )
       end
 
