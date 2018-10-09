@@ -35,6 +35,7 @@ module Bosh::Stemcell
       [
         :bosh_libyaml,
         :bosh_go_agent,
+        # :bosh_oneandone_go_agent,
         :aws_cli,
         :google_gcscli,
         :logrotate_config,

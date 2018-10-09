@@ -16,6 +16,3 @@ echo 'AllowGroups bosh_sshers root' >> $chroot/etc/ssh/sshd_config
 echo 'AllowUsers vcap root' >> $chroot/etc/ssh/sshd_config
 
 sed "/^ *DenyUsers/d" -i $chroot/etc/ssh/sshd_config
-
-sed "/^ *PasswordAuthentication/d" -i $chroot/etc/ssh/sshd_config
-echo 'PasswordAuthentication no' >> $chroot/etc/ssh/sshd_config
